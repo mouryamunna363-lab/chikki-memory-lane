@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Memory Lane</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+text-align:center;
+background:linear-gradient(135deg,#ff9ecf,#ffd6e8);
+overflow-x:hidden;
+color:#333;
+}
+
+.container{
+padding:100px 20px;
+}
+
+input{
+padding:10px;
+font-size:16px;
+border-radius:10px;
+border:none;
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+border:none;
+border-radius:20px;
+background:white;
+cursor:pointer;
+margin-left:10px;
+}
+
+.slideshow{
+display:none;
+padding-top:80px;
+}
+
+img{
+width:300px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+transition:opacity 1.5s ease;
+}
+
+.message{
+margin-top:20px;
+font-size:20px;
+}
+
+.letter{
+display:none;
+max-width:600px;
+margin:60px auto;
+font-size:20px;
+line-height:1.6;
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.flower{
+position:absolute;
+top:-50px;
+font-size:24px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh);
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="lockscreen">
+
+<h2>🔐 Guess the password</h2>
+<p>Hint: The nickname I saved you as.</p>
+
+<input id="password" type="text" placeholder="Enter password">
+<button onclick="checkPassword()">Unlock</button>
+
+<p id="error"></p>
+
+</div>
+
+
+<div class="slideshow" id="memoryLane">
+
+<h1>Welcome Chikki 🌸</h1>
+
+<img id="photo" src="photo1.jpg">
+
+<div class="message" id="text"></div>
+
+</div>
+
+
+<div class="letter" id="letterBox">
+<p id="letterText"></p>
+</div>
+
+
+<audio id="music" src="music.mp3"></audio>
+
+
+<script>
+
+let correctPassword="chikki";
+
+function checkPassword(){
+
+let input=document.getElementById("password").value.toLowerCase();
+
+if(input===correctPassword){
+
+document.getElementById("lockscreen").style.display="none";
+document.getElementById("memoryLane").style.display="block";
+
+document.getElementById("music").play();
+
+startSlideshow();
+startFlowers();
+
+}
+else{
+
+document.getElementById("error").innerHTML="Hmm… try again 🙂";
+
+}
+
+}
+
+let photos=[
+"photo1.jpg",
+"photo2.jpg",
+"photo3.jpg",
+"photo4.jpg",
+"photo5.jpg",
+"photo6.jpg",
+"photo7.jpg",
+"photo8.jpg",
+"photo9.jpg",
+"photo10.jpg",
+"photo11.jpg",
+"photo12.jpg"
+];
+
+let messages=[
+"Some memories stay with us.",
+"You make ordinary moments feel special.",
+"Some laughs echo longer.",
+"You’re stronger than you realise.",
+"You make people feel comfortable just by being yourself.",
+"You bring calm to chaos.",
+"Your kindness is rare.",
+"You make the world a little brighter.",
+"Moments with you always feel easy.",
+"Some memories deserve a frame.",
+"And this one definitely does.",
+"This moment deserved its own page."
+];
+
+let i=0;
+
+function startSlideshow(){
+
+let slide=setInterval(function(){
+
+if(i<photos.length){
+
+document.getElementById("photo").src=photos[i];
+document.getElementById("text").innerHTML=messages[i];
+
+i++;
+
+}
+else{
+
+clearInterval(slide);
+
+document.getElementById("memoryLane").style.display="none";
+
+showLetter();
+
+}
+
+},4000);
+
+}
+
+function showLetter(){
+
+document.getElementById("letterBox").style.display="block";
+
+let letter="For Chikki\n\nSome people walk into life and simply stay,\nBringing a little more warmth to each passing day.\n\nYou carry a strength in the things that you do,\nAnd a kindness that people remember in you.\n\nMoments with you always feel easy and bright,\nLike a calm little pause in the middle of life.\n\nAnd whatever tomorrow or life may bring through,\nJust know that I will always be here for you.\n\nSo this page simply wanted to say,\nHappy Women's Day, Chikki, today.";
+
+typeLetter(letter);
+
+}
+
+function typeLetter(text){
+
+let i=0;
+
+function typing(){
+
+if(i<text.length){
+
+document.getElementById("letterText").innerHTML+=text.charAt(i);
+
+i++;
+
+setTimeout(typing,40);
+
+}
+
+}
+
+typing();
+
+}
+
+function startFlowers(){
+
+setInterval(function(){
+
+let flower=document.createElement("div");
+
+flower.classList.add("flower");
+
+flower.innerHTML="🌸";
+
+flower.style.left=Math.random()*100+"vw";
+
+flower.style.animationDuration=(Math.random()*3+4)+"s";
+
+document.body.appendChild(flower);
+
+setTimeout(()=>{
+
+flower.remove();
+
+},7000);
+
+},300);
+
+}
+
+</script>
+
+</body>
+</html>
