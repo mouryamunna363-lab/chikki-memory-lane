@@ -46,7 +46,7 @@ width:320px;
 border-radius:12px;
 box-shadow:0 10px 30px rgba(0,0,0,0.3);
 opacity:0;
-transition:opacity 1.5s ease;
+transition:opacity 1.2s ease;
 }
 
 .message{
@@ -70,7 +70,7 @@ text-align:left;
 .flower{
 position:absolute;
 top:-50px;
-font-size:24px;
+font-size:22px;
 animation:fall linear infinite;
 }
 
@@ -131,8 +131,11 @@ document.getElementById("lockscreen").style.display="none";
 document.getElementById("memoryLane").style.display="block";
 
 let music=document.getElementById("music");
+
+setTimeout(()=>{
 music.volume=0.7;
-setTimeout(()=>{ music.play(); },300);
+music.play().catch(()=>{});
+},200);
 
 startSlideshow();
 startFlowers();
@@ -162,25 +165,26 @@ let photos=[
 "photo12.jpg"
 ];
 
+let messages=[
+"A small memory.",
+"Another moment worth keeping.",
+"Some smiles stay longer.",
+"A day I still remember.",
+"A simple moment.",
+"Some laughs echo longer.",
+"Moments like this matter.",
+"A warm memory.",
+"A quiet moment.",
+"A little happiness.",
+"A memory worth saving.",
+"One more moment."
+];
+
+
 photos.forEach(src=>{
 let img=new Image();
 img.src=src;
 });
-
-let messages=[
-"A few moments I wanted to keep.",
-"Some memories deserve a small page.",
-"Moments that stayed with me.",
-"Some smiles stay longer.",
-"Some days become memories.",
-"Some laughs echo longer.",
-"Simple moments matter most.",
-"Some memories feel warm.",
-"Some days just feel lighter.",
-"A moment worth keeping.",
-"Another memory with you.",
-"And one more worth remembering."
-];
 
 
 let i=0;
@@ -193,14 +197,14 @@ photo.style.opacity=1;
 
 let slide=setInterval(function(){
 
-if(i<photos.length){
+if(i < photos.length){
 
 photo.style.opacity=0;
 
 setTimeout(function(){
 
 photo.src=photos[i];
-document.getElementById("text").innerHTML=messages[i];
+document.getElementById("text").innerHTML = messages[i] || "";
 
 photo.style.opacity=1;
 
@@ -213,11 +217,11 @@ else{
 
 clearInterval(slide);
 
-setTimeout(showLetter,2000);
+setTimeout(showLetter,1500);
 
 }
 
-},4500);
+},3500);
 
 }
 
@@ -225,7 +229,6 @@ setTimeout(showLetter,2000);
 function showLetter(){
 
 document.getElementById("memoryLane").style.display="none";
-
 document.getElementById("letterBox").style.display="block";
 
 let letter=`For Chikki
@@ -253,7 +256,6 @@ Just know I will always be here for you.
 
 Happy Women's Day.`;
 
-
 typeLetter(letter);
 
 }
@@ -262,7 +264,6 @@ typeLetter(letter);
 function typeLetter(text){
 
 let i=0;
-
 let target=document.getElementById("letterText");
 
 function typing(){
@@ -280,7 +281,7 @@ target.innerHTML+=char;
 
 i++;
 
-setTimeout(typing,35);
+setTimeout(typing,30);
 
 }
 
@@ -302,8 +303,7 @@ flower.classList.add("flower");
 flower.innerHTML="🌸";
 
 flower.style.left=Math.random()*100+"vw";
-
-flower.style.animationDuration=(Math.random()*4+6)+"s";
+flower.style.animationDuration=(Math.random()*4+5)+"s";
 
 document.body.appendChild(flower);
 
@@ -311,9 +311,9 @@ setTimeout(()=>{
 
 flower.remove();
 
-},8000);
+},7000);
 
-},700);
+},800);
 
 }
 
@@ -321,4 +321,3 @@ flower.remove();
 
 </body>
 </html>
-
