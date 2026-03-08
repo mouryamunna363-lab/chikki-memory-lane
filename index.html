@@ -132,10 +132,11 @@ document.getElementById("memoryLane").style.display="block";
 
 let music=document.getElementById("music");
 
-setTimeout(()=>{
-music.volume=0.7;
-music.play().catch(()=>{});
-},200);
+music.volume = 0.7;
+
+document.body.addEventListener("click", () => {
+music.play();
+}, { once: true });
 
 startSlideshow();
 startFlowers();
@@ -321,3 +322,4 @@ flower.remove();
 
 </body>
 </html>
+
