@@ -132,7 +132,7 @@ document.getElementById("memoryLane").style.display="block";
 
 let music=document.getElementById("music");
 music.volume=0.7;
-music.play().catch(()=>{});
+setTimeout(()=>{ music.play(); },300);
 
 startSlideshow();
 startFlowers();
@@ -161,6 +161,11 @@ let photos=[
 "photo11.jpg",
 "photo12.jpg"
 ];
+
+photos.forEach(src=>{
+let img=new Image();
+img.src=src;
+});
 
 let messages=[
 "A few moments I wanted to keep.",
@@ -199,7 +204,7 @@ document.getElementById("text").innerHTML=messages[i];
 
 photo.style.opacity=1;
 
-},700);
+},200);
 
 i++;
 
@@ -316,3 +321,4 @@ flower.remove();
 
 </body>
 </html>
+
