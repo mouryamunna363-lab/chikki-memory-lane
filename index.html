@@ -116,7 +116,9 @@ transform:translateY(110vh);
 </div>
 
 
-<audio id="music" src="music.mp3" preload="auto"></audio>
+<audio id="music" preload="auto" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 
 <script>
@@ -137,7 +139,13 @@ let music=document.getElementById("music");
 music.volume = 0.7;
 
 document.body.addEventListener("click", () => {
-music.play();
+let music = document.getElementById("music");
+
+music.volume = 0.7;
+
+setTimeout(() => {
+music.play().catch(()=>{});
+}, 200);
 }, { once: true });
 
 startSlideshow();
@@ -324,6 +332,7 @@ flower.remove();
 
 </body>
 </html>
+
 
 
 
