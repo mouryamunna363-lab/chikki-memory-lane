@@ -11,8 +11,8 @@ margin:0;
 font-family:Arial, sans-serif;
 text-align:center;
 background:linear-gradient(135deg,#ff9ecf,#ffd6e8);
-overflow:hidden;
 color:#333;
+overflow:hidden;
 }
 
 .container{
@@ -41,19 +41,30 @@ display:none;
 padding-top:60px;
 }
 
-img{
-max-width:320px;
-max-height:420px;
-width:auto;
-height:auto;
+.photo-frame{
+width:340px;
+height:420px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.photo-frame img{
+max-width:100%;
+max-height:100%;
 border-radius:12px;
 box-shadow:0 10px 30px rgba(0,0,0,0.3);
 opacity:0;
 transition:opacity 1.2s ease;
 }
+
 .message{
 margin-top:20px;
 font-size:20px;
+max-width:500px;
+margin-left:auto;
+margin-right:auto;
 }
 
 .letter{
@@ -66,7 +77,6 @@ background:white;
 padding:30px;
 border-radius:12px;
 box-shadow:0 10px 25px rgba(0,0,0,0.2);
-text-align:left;
 }
 
 .flower{
@@ -92,7 +102,7 @@ transform:translateY(110vh);
 <h2>🔐 Guess the password</h2>
 <p>Hint: The nickname I saved you as.</p>
 
-<input id="password" type="text" placeholder="Enter password">
+<input id="password" type="text">
 <button onclick="checkPassword()">Unlock</button>
 
 <p id="error"></p>
@@ -104,7 +114,9 @@ transform:translateY(110vh);
 
 <h1>Welcome Chikki 🌸</h1>
 
+<div class="photo-frame">
 <img id="photo" src="photo1.jpg">
+</div>
 
 <div class="message" id="text"></div>
 
@@ -117,7 +129,7 @@ transform:translateY(110vh);
 
 
 <audio id="music" preload="auto" loop>
-  <source src="music.mp3" type="audio/mpeg">
+<source src="music.mp3" type="audio/mpeg">
 </audio>
 
 
@@ -136,25 +148,17 @@ document.getElementById("memoryLane").style.display="block";
 
 let music=document.getElementById("music");
 
-music.volume = 0.7;
-
-document.body.addEventListener("click", () => {
-let music = document.getElementById("music");
-
-music.volume = 0.7;
-
-setTimeout(() => {
+setTimeout(()=>{
+music.volume=0.7;
 music.play().catch(()=>{});
-}, 200);
-}, { once: true });
+},200);
 
 startSlideshow();
 startFlowers();
 
-}
-else{
+}else{
 
-document.getElementById("error").innerHTML="Hmm… try again 🙂";
+document.getElementById("error").innerHTML="Try again 🙂";
 
 }
 
@@ -172,23 +176,30 @@ let photos=[
 "photo8.jpg",
 "photo9.jpg",
 "photo10.jpg",
-"photo11.jpg",
-"photo12.jpg"
+"photo11.jpg"
 ];
 
+
 let messages=[
-"A small memory.",
-"Another moment worth keeping.",
-"Some smiles stay longer.",
-"A day I still remember.",
-"A simple moment.",
-"Some laughs echo longer.",
-"Moments like this matter.",
-"A warm memory.",
-"A quiet moment.",
-"A little happiness.",
-"A memory worth saving.",
-"One more moment."
+
+"Some days look easy from the outside view,",
+"But I know the effort it takes from you.",
+
+"The quiet work you carry each day along the way,",
+"And the patience you show without much to say.",
+
+"You keep moving forward through moments tough and new,",
+"Still finding your strength in all that you do.",
+
+"And somehow your smile still finds its place,",
+"Bringing warmth and calm into every space.",
+
+"And seeing that strength quietly shine through,",
+"Reminds me how strong I see you.",
+
+"And it leaves a simple thought that's true,",
+"That the world feels brighter just knowing you."
+
 ];
 
 
@@ -203,7 +214,6 @@ let i=0;
 function startSlideshow(){
 
 let photo=document.getElementById("photo");
-
 photo.style.opacity=1;
 
 let slide=setInterval(function(){
@@ -223,11 +233,9 @@ photo.style.opacity=1;
 
 i++;
 
-}
-else{
+}else{
 
 clearInterval(slide);
-
 setTimeout(showLetter,1500);
 
 }
@@ -244,28 +252,26 @@ document.getElementById("letterBox").style.display="block";
 
 let letter=`For Chikki
 
-Some days may look simple to people passing through,
-But I know the effort it takes from you.
+People often say women are strong every day,
+But sometimes those words quietly drift away.
 
-The way you carry your work and your care,
-Still finding the patience and kindness to share.
+What they don't see are the things that you do,
+The effort and patience that carry you through.
 
-You don’t always say when the days feel tight,
-Yet you still move forward and hold things right.
+The long days you face and still keep bright,
+The calm you hold even when things aren't light.
 
 And seeing that strength has shown me too,
 How much quiet courage lives in you.
 
-Somehow your smile turns heavy days light,
-And knowing you makes my own world bright.
+You bring a warmth I didn't expect to find,
+And a kind of happiness that stays in my mind.
 
-You give me a strength I didn’t expect to find,
-And a calm kind of happiness that stays in my mind.
-
-So whatever tomorrow may bring into view,
+So whatever tomorrow decides to do,
 Just know I will always be here for you.
 
-Happy Women's Day.`;
+Happy Women's Day.
+`;
 
 typeLetter(letter);
 
@@ -285,13 +291,11 @@ let char=text.charAt(i);
 
 if(char=="\n"){
 target.innerHTML+="<br>";
-}
-else{
+}else{
 target.innerHTML+=char;
 }
 
 i++;
-
 setTimeout(typing,30);
 
 }
@@ -310,7 +314,6 @@ setInterval(function(){
 let flower=document.createElement("div");
 
 flower.classList.add("flower");
-
 flower.innerHTML="🌸";
 
 flower.style.left=Math.random()*100+"vw";
@@ -318,11 +321,7 @@ flower.style.animationDuration=(Math.random()*4+5)+"s";
 
 document.body.appendChild(flower);
 
-setTimeout(()=>{
-
-flower.remove();
-
-},7000);
+setTimeout(()=>flower.remove(),7000);
 
 },800);
 
@@ -332,7 +331,3 @@ flower.remove();
 
 </body>
 </html>
-
-
-
-
